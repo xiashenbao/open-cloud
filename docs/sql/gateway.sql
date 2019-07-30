@@ -77,8 +77,8 @@ CREATE TABLE `gateway_ip_limit_api` (
 -- ----------------------------
 -- Records of gateway_ip_limit_api
 -- ----------------------------
-INSERT INTO `gateway_ip_limit_api` VALUES ('1149260136337063937', '1149168208614449153');
-INSERT INTO `gateway_ip_limit_api` VALUES ('1149260136337063937', '1149168208677363714');
+INSERT INTO `gateway_ip_limit_api` VALUES ('1149260136337063937', '1149168208614449153', '2019-07-11 18:12:23', '2019-07-11 18:12:23');
+INSERT INTO `gateway_ip_limit_api` VALUES ('1149260136337063937', '1149168208677363714', '2019-07-11 18:12:23', '2019-07-11 18:12:23');
 
 -- ----------------------------
 -- Table structure for gateway_rate_limit
@@ -116,8 +116,8 @@ CREATE TABLE `gateway_rate_limit_api` (
 -- ----------------------------
 -- Records of gateway_rate_limit_api
 -- ----------------------------
-INSERT INTO `gateway_rate_limit_api` VALUES ('1149260244919205889', '1149168208614449153');
-INSERT INTO `gateway_rate_limit_api` VALUES ('1149260244919205889', '1149168208677363714');
+INSERT INTO `gateway_rate_limit_api` VALUES ('1149260244919205889', '1149168208614449153', '2019-07-11 18:12:49', '2019-07-11 18:27:10');
+INSERT INTO `gateway_rate_limit_api` VALUES ('1149260244919205889', '1149168208677363714', '2019-07-11 18:12:49', '2019-07-11 18:27:10');
 
 -- ----------------------------
 -- Table structure for gateway_route
