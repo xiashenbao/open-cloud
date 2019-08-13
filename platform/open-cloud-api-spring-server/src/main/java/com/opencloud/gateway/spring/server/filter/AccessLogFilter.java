@@ -14,9 +14,6 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 /**
  * 日志过滤器
  *
@@ -40,24 +37,16 @@ public class AccessLogFilter implements WebFilter {
             public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
                 if (body instanceof Flux) {
                     Flux<? extends DataBuffer> fluxBody = (Flux<? extends DataBuffer>) body;
-                    return super.writeWith(
-                            //解决返回体分段传输
-                            fluxBody.buffer().map(dataBuffers -> {
-                                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                                dataBuffers.forEach(dataBuffer -> {
-                                    byte[] content = new byte[dataBuffer.readableByteCount()];
-                                    dataBuffer.read(content);
-                                    DataBufferUtils.release(dataBuffer);
-                                    try {
-                                        bos.write(content);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                });
-                                // 发送日志
-                                return bufferFactory.wrap(bos.toByteArray());
-                            }));
+                    return super.writeWith(fluxBody.map(dataBuffer -> {
+                        // probably should reuse buffers
+                        byte[] content = new byte[dataBuffer.readableByteCount()];
+                        dataBuffer.read(content);
+                        //释放掉内存
+                        DataBufferUtils.release(dataBuffer);
+                        return bufferFactory.wrap(content);
+                    }));
                 }
+                // if body is not a flux. never got there.
                 return super.writeWith(body);
             }
         };
